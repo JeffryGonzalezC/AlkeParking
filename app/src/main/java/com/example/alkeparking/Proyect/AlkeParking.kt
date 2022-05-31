@@ -8,7 +8,7 @@ lateinit var vehiclesArray : Array<Vehicle>
 fun main(){
 
 
-    val car = Vehicle("aa1223", Vehicle.VehicleType.AUTO, Calendar.getInstance(), "D")
+    val car = Vehicle("aa1223", Vehicle.VehicleType.AUTO, Calendar.getInstance(),"D")
     val moto1 = Vehicle("bb0101", Vehicle.VehicleType.MOTO, Calendar.getInstance())
     val moto2 = Vehicle("bb0102", Vehicle.VehicleType.MOTO, Calendar.getInstance())
     val moto3 = Vehicle("bb0103", Vehicle.VehicleType.MOTO, Calendar.getInstance())
@@ -22,7 +22,6 @@ fun main(){
     checkIn()
 
     val parkingSpace = ParkingSpace(car, car.checkInTime, car.discountCard, parking)
-
     parkingSpace.checkOutVehicle(car.plate)
 
     //parking.vehicles.remove(car)

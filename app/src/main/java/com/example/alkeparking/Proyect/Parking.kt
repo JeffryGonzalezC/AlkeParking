@@ -5,8 +5,6 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
     val MAXSPACES = 5
 
     fun addVehicle(vehicle: Vehicle): Boolean {
-        //return vehicles.size < MAXSPACES
-
         if (vehicles.size < MAXSPACES){
             return vehicles.add(vehicle)
         }else{
@@ -19,5 +17,10 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
     fun removeVehicle(vehicle: Vehicle){
         if (vehicles.contains(vehicle))
             vehicles.remove(vehicle)
+    }
+
+    fun queryplate(plate: String): Boolean{
+        vehicles.find { return it.plate == plate }
+        return false
     }
 }

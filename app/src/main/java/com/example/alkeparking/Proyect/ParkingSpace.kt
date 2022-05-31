@@ -1,6 +1,8 @@
 package com.example.alkeparking.Proyect
 
 import java.util.*
+import kotlin.math.ceil
+
 const val MINUTES_IN_MILLISECONDS = 60000
 
 
@@ -12,32 +14,40 @@ data class ParkingSpace(
 ) {
     val parkedTime: Long
         get() {
-            return (4-2)
-            //return (Calendar.getInstance().timeInMillis - checkInTime.timeInMillis) / MINUTES_IN_MILLISECONDS
+            //return (8160000)
+            return (Calendar.getInstance().timeInMillis - checkInTime.timeInMillis) / MINUTES_IN_MILLISECONDS
         }
 
     fun checkOutVehicle(plate: String) {
-        for (vehicle in parking.vehicles) {
-            if (vehicle.plate == plate) {
-                calculateTotal()
+        if(parking.queryplate(plate)){
+            var hasDincountCard = false
+                vehicle.discountCard?.let { hasDincountCard = true }
 
-                onSuccess(0)
-            } else onError()
-        }
+            val amount = calculateFee(vehicle.type, hasDincountCard)
+            onSuccess(amount)
+        }else onError()
     }
 
-    private fun calculateTotal(): Int {
-        println(parkedTime)
+    private fun calculateFee(type: Vehicle.VehicleType, hasDincountCard: Boolean): Int {
+        var amount = type.fee
+        var time = (parkedTime / 60000)
+        if (time > 120){
+            val extraTime = time - 120
+            val auxAmount = ceil(extraTime.toDouble() / 15)
 
-        when(parkedTime){
-            in 0..2 -> println("Tiempo parqueado cobrado 2 horas")
+            val extraAmount = auxAmount * 5
+
+            amount += extraAmount.toInt()
         }
-        return 0
 
+        if (hasDincountCard)
+            amount -= (amount * 0.15).toInt()
+
+        return amount
     }
 
-    fun onSuccess(total: Int) {
-
+    fun onSuccess(amount: Int) {
+        println("valor total $amount")
     }
 
     fun onError() {
