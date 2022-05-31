@@ -2,7 +2,7 @@ package com.example.alkeparking.Proyect
 
 import java.util.*
 
-val parking = Parking(mutableSetOf())
+val parking = Parking(mutableSetOf(), pair = Pair(0, 0))
 lateinit var vehiclesArray : Array<Vehicle>
 
 fun main(){
@@ -40,5 +40,10 @@ fun checkIn(){
             println("Sorry, the check-in failed")
         }
     }
+    //Show earnings of vehicles already retired
+    parking.showEarnings(parking.pair)
+
+    //Show the list of vehicles remaining in parking
+    parking.listVehicles(parking.vehicles)
 
 }
