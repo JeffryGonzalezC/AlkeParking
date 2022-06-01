@@ -21,6 +21,6 @@ data class Vehicle(val plate: String,val type: VehicleType,
     override fun hashCode(): Int = this.plate.hashCode()
 
     enum class VehicleType(val fee: Int) {
-        AUTO(20), MOTO(15), MINIBUS(25), BUS(30)
+        CAR(20), MOTORCYCLE(15), MINIBUS(25), BUS(30)
     }
 }
