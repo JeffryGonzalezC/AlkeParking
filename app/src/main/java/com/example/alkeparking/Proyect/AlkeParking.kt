@@ -69,7 +69,7 @@ fun main(){
 }
 
     /*  This function allows you to enter the vehicles in the parking lot,
-        using the addVehicle function of the paking class. */
+        using the addVehicle function of the parking class. */
     fun checkIn(){
 
     vehiclesArray.forEach {

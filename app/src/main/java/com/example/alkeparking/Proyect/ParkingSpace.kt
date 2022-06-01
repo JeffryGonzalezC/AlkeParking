@@ -16,13 +16,13 @@ data class ParkingSpace(
 ) {
     val parkedTime: Long
         get() {
-            //return (8160000)
             return (Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis) / MINUTES_IN_MILLISECONDS
         }
 
     /*  This function allows the vehicle to leave the parking lot,
-        using the queryplate method where it is verified if the vehicle
-        is registered, to subsequently collect the fee. */
+        using the find function that returns the first element that
+        matches, or in its case null if no element is found, to later
+        collect the fee. */
     fun checkOutVehicle(plate: String) {
         val vehicleToRemove = parking.vehicles.find { it.plate == plate }
         vehicleToRemove?.let {
