@@ -3,21 +3,26 @@ package com.example.alkeparking.Proyect
 import java.util.*
 import kotlin.math.ceil
 
+
 const val MINUTES_IN_MILLISECONDS = 60000
 
-
+/*  This class is in charge of performing the corresponding calculations
+    to generate the rate that must be charged for the parking service
+    provided, it receives as parameters a vehicle type object and an
+    instance of the Parking class. */
 data class ParkingSpace(
     var vehicle: Vehicle,
-    val checkInTime: Calendar,
-    val discountCard: String?,
     val parking: Parking
 ) {
     val parkedTime: Long
         get() {
             //return (8160000)
-            return (Calendar.getInstance().timeInMillis - checkInTime.timeInMillis) / MINUTES_IN_MILLISECONDS
+            return (Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis) / MINUTES_IN_MILLISECONDS
         }
 
+    /*  This function allows the vehicle to leave the parking lot,
+        using the queryplate method where it is verified if the vehicle
+        is registered, to subsequently collect the fee. */
     fun checkOutVehicle(plate: String) {
         if(parking.queryplate(plate)){
             var hasDincountCard = false
@@ -25,9 +30,15 @@ data class ParkingSpace(
 
             val amount = calculateFee(vehicle.type, hasDincountCard)
             onSuccess(amount)
+            parking.removeVehicle(vehicle)
         }else onError()
     }
 
+    /*  This function allows calculating the fee to be paid by the vehicle that will be removed
+        from the parking lot, it receives as parameters an object of type VehicleType and a boolean
+        that tells us if they have any type of discount card, and in turn returns the value of the
+        rate that will be charged, in this function the ceil function is used that allows us to
+        approximate or round values. */
     private fun calculateFee(type: Vehicle.VehicleType, hasDincountCard: Boolean): Int {
         var amount = type.fee
         var time = (parkedTime / 60000)
@@ -47,10 +58,11 @@ data class ParkingSpace(
     }
 
     fun onSuccess(amount: Int) {
-        println("valor total $amount")
+        println("${vehicle.type} ${vehicle.plate} Your fee is $amount. Come back soon. ")
+        parking.pair = Pair(parking.pair.first + 1, parking.pair.second + amount)
     }
 
     fun onError() {
-
+        println("Sorry the check-out failed")
     }
 }

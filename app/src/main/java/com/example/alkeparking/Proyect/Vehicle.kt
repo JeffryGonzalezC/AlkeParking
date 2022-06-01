@@ -1,7 +1,9 @@
 package com.example.alkeparking.Proyect
 
 import java.util.*
-
+/*  The constructor of the vehicle class receives 4 parameters
+    that are essential for the vehicle to be allowed to enter
+    the parking lot. */
 data class Vehicle(val plate: String,val type: VehicleType,
                    val checkInTime: Calendar,
                    val discountCard: String? = null){
@@ -21,6 +23,6 @@ data class Vehicle(val plate: String,val type: VehicleType,
     override fun hashCode(): Int = this.plate.hashCode()
 
     enum class VehicleType(val fee: Int) {
-        AUTO(20), MOTO(15), MINIBUS(25), BUS(30)
+        CAR(20), MOTORCYCLE(15), MINIBUS(25), BUS(30)
     }
 }

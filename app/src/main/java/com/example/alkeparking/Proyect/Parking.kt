@@ -2,7 +2,7 @@ package com.example.alkeparking.Proyect
 
 data class Parking(val vehicles: MutableSet<Vehicle>, var pair: Pair<Int, Int>) {
     //Value that defines the maximum number of parking spaces
-    val MAXSPACES = 5
+    val MAXSPACES = 20
 
     //Function that receives a vehicle objects and checks if there are spaces available and
     // if the number plate is already registered
@@ -24,14 +24,21 @@ data class Parking(val vehicles: MutableSet<Vehicle>, var pair: Pair<Int, Int>) 
         println(vehicles.joinToString { vehicle: Vehicle -> vehicle.plate })
     }
 
-
-    /* fun removeVehicle(vehicle: Vehicle){
+    /*  This function allows removing from the list the vehicle
+        that has already been removed from the parking lot, after
+        having made its respective payment. */
+     fun removeVehicle(vehicle: Vehicle){
         if (vehicles.contains(vehicle))
             vehicles.remove(vehicle)
     }
 
-     */
 
+
+    /*  This function allows you to search for a vehicle by its license plate
+        since it is its unique identifier, using the find function that returns
+        the first element that matches the received parameter, this function receives
+        as a parameter the license plate of the vehicle to be searched for and returns
+        a boolean that indicates whether the vehicle was found or not. */
     fun queryplate(plate: String): Boolean {
         vehicles.find { return it.plate == plate }
         return false
