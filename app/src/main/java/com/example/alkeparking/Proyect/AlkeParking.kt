@@ -57,14 +57,8 @@ fun main(){
     val parkingSpaceBus1 = ParkingSpace(bus1, parking)
     parkingSpaceBus1.checkOutVehicle(bus1.plate)
 
-    val parkingSpaceBus2 = ParkingSpace(bus2, parking)
-    parkingSpaceBus2.checkOutVehicle(bus2.plate)
-
-    val parkingSpaceMiniBus1 = ParkingSpace(miniBus1, parking)
-    parkingSpaceMiniBus1.checkOutVehicle(miniBus1.plate)
-
-    val parkingSpaceMiniBus2 = ParkingSpace(miniBus2, parking)
-    parkingSpaceMiniBus2.checkOutVehicle(miniBus2.plate)
+    val parkingSpaceBus2 = ParkingSpace(bus1, parking)
+    parkingSpaceBus2.checkOutVehicle(bus1.plate)
 
 
     parking.showEarnings(parking.pair)

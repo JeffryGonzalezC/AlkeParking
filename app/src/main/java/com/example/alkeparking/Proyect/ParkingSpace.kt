@@ -24,14 +24,15 @@ data class ParkingSpace(
         using the queryplate method where it is verified if the vehicle
         is registered, to subsequently collect the fee. */
     fun checkOutVehicle(plate: String) {
-        if(parking.queryplate(plate)){
+        val vehicleToRemove = parking.vehicles.find { it.plate == plate }
+        vehicleToRemove?.let {
             var hasDincountCard = false
                 vehicle.discountCard?.let { hasDincountCard = true }
 
             val amount = calculateFee(vehicle.type, hasDincountCard)
             onSuccess(amount)
             parking.removeVehicle(vehicle)
-        }else onError()
+        }?: onError()
     }
 
     /*  This function allows calculating the fee to be paid by the vehicle that will be removed
